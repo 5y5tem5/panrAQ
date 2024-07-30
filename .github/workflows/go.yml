@@ -24,19 +24,19 @@ jobs:
       with:
         go-version: '1.20'
 
-    - name: Build
-      run: go build -v -o build/myapp ./...
-
-    - name: Test
-      run: go test -v ./...
-
     - name: Extract repo name
       id: extract_repo
       run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
+    - name: Build
+      run: go build -v -o build/${{ env.REPO_NAME }} ./...
+
+    - name: Test
+      run: go test -v ./...
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.REPO_NAME }}-${{ matrix.os }}
-        path: build/myapp*
+        path: build/${{ env.REPO_NAME }}*
         if-no-files-found: error
