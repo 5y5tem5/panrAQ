@@ -23,13 +23,20 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.20'
+    - name: Set extension based on OS
+      run: |
+        if [ "${{ matrix.os }}" == "windows-latest" ]; then
+          echo "EXT=.exe" >> $GITHUB_ENV
+        else
+          echo "EXT=" >> $GITHUB_ENV
+        fi
 
     - name: Extract repo name
       id: extract_repo
       run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
 
     - name: Build
-      run: go build -v -o build/${{ env.REPO_NAME }} ./...
+      run: go build -v -o build/${{ env.REPO_NAME }}{{ env.EXT }} ./...
 
     - name: Test
       run: go test -v ./...
@@ -38,5 +45,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.REPO_NAME }}-${{ matrix.os }}
-        path: build/${{ env.REPO_NAME }}*
+        path: build/${{ env.REPO_NAME }}{{ env.EXT }}*
         if-no-files-found: error
