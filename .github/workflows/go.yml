@@ -29,3 +29,10 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: myapp-${{ matrix.os }}
+        path: build/myapp*
+        if-no-files-found: error
