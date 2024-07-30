@@ -30,9 +30,13 @@ jobs:
     - name: Test
       run: go test -v ./...
 
+    - name: Extract repo name
+      id: extract_repo
+      run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: myapp-${{ matrix.os }}
+        name: ${{ env.REPO_NAME }}-${{ matrix.os }}
         path: build/myapp*
         if-no-files-found: error
