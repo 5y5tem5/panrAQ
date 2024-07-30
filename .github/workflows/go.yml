@@ -24,7 +24,7 @@ jobs:
       with:
         go-version: '1.20'
     - name: Set extension based on OS
-      run: 
+      run: |
         if [ "${{ matrix.os }}" == "windows-latest" ]; then
           echo "EXT=.exe" >> $GITHUB_ENV
         else
@@ -45,5 +45,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.REPO_NAME }}-${{ matrix.os }}
-        path: build/${{ env.REPO_NAME }}{{ env.EXT }}*
+        path: build/${{ env.REPO_NAME }}${{ env.EXT }}*
         if-no-files-found: error
