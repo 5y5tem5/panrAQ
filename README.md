@@ -1,2 +1,2 @@
 # panrAQ
-pronounced "Pan Rack"  little program to decrypt/encrypt palo alto netwrok firewall secrets. 
+panrAQ (Pronounced "Pan Rack") is a little program to decrypt/encrypt Palo Alto Network firewall secrets. 
