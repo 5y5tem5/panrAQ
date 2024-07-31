@@ -36,7 +36,7 @@ jobs:
 
     - name: Set extension for Windows
       if: runner.os == 'Windows'
-      run: echo "EXT=.exe" >> $GITHUB_ENV
+      run: echo "EXT=.exe" >> $env:GITHUB_ENV
 
     - name: Build
       run: go build -v -o build/${{ env.REPO_NAME }}${{ env.EXT }} ./...
